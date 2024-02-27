@@ -24,7 +24,7 @@ pipeline {
             steps { 
                 withDockerRegistry([credentialsId: "docker", url: ""]) {
                     script {
-                        app = docker.build("asg")
+                        app = docker.build("secops")
                     }
                 }
             }
@@ -33,14 +33,14 @@ pipeline {
         stage('Push') {
             steps {
                 script {
-                    docker.withRegistry('https://056296809003.dkr.ecr.us-east-2.amazonaws.com', 'ecr:us-east-2:aws-cred') {
+                    docker.withRegistry('056296809003.dkr.ecr.us-east-2.amazonaws.com', 'ecr:us-east-2:aws-cred') {
                         app.push("latest")
                     }
                 }
             }
         }
 
-        stage('Kubernetes Deployment of ASG Bugg Web Application') {
+        stage('Kubernetes Deployment of secops Bugg Web Application') {
             steps {
                 withKubeConfig([credentialsId: 'kubelogin']) {
                     sh('kubectl delete all --all -n devsecops')
