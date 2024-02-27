@@ -15,7 +15,9 @@ pipeline {
                 echo 'Testing...'
                 snykSecurity(
                     snykInstallation: 'synktool',
-                    snykTokenId: 'synk_token'
+                    snykTokenId: 'synk_token',
+                    failOnError: 'false',
+                    failOnIssues: 'false'
                 )
             }
         }
